@@ -27,6 +27,12 @@ const columns = [
   }
 ];
 
+const compararFechaDesc = (a, b) => {
+  const d1 = new Date(a.fecha);
+  const d2 = new Date(b.fecha);
+  const diff = d2.getTime() - d1.getTime();
+  return diff;
+};
 const { Option } = Select;
 
 const enAno = (fecha, ano) => {
@@ -41,18 +47,25 @@ export default function Dolares({ ondolareselected }) {
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
+  const dataSource = data.dolares
+    .filter(d => enAno(d.fecha, ano))
+    .sort(compararFechaDesc);
+
+  console.log("dataSource", dataSource);
   return (
     <>
       <Form>
         <Select defaultValue={ano} onChange={setAno}>
           {anos.map(ano => (
-            <Option value={ano}>{ano}</Option>
+            <Option value={ano} key={ano}>
+              {ano}
+            </Option>
           ))}
         </Select>
       </Form>
       <Table
         style={{ marginTop: "1em" }}
-        dataSource={data.dolares.filter(d => enAno(d.fecha, ano))}
+        dataSource={dataSource}
         columns={columns}
       />
     </>

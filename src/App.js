@@ -4,7 +4,8 @@ import { Breadcrumb, Icon, Layout, Menu } from "antd";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import React from "react";
 
-import GraficoDolar from "./components/GraficoDolar";
+import ConNavegacion from "./components/ConNavegacion";
+import Dashboard from "./components/Dashboard";
 import GraficoDolarObs from "./components/GraficoDolarObs";
 import MyProvider from "./apollo/MyProvider";
 import TablaDolares from "./components/TablaDolares";
@@ -45,38 +46,9 @@ export default class App extends React.Component {
                   <Link to="/tabla" />
                 </Menu.Item>
                 <Menu.Item key="3">
-                  <Icon type="chart" />
+                  <Icon type="line-chart" />
                   <span>Dolar observado</span>
                   <Link to="/dolar-obs" />
-                </Menu.Item>
-                <SubMenu
-                  key="sub1"
-                  title={
-                    <span>
-                      <Icon type="user" />
-                      <span>User</span>
-                    </span>
-                  }
-                >
-                  <Menu.Item key="3">Tom</Menu.Item>
-                  <Menu.Item key="4">Bill</Menu.Item>
-                  <Menu.Item key="5">Alex</Menu.Item>
-                </SubMenu>
-                <SubMenu
-                  key="sub2"
-                  title={
-                    <span>
-                      <Icon type="team" />
-                      <span>Team</span>
-                    </span>
-                  }
-                >
-                  <Menu.Item key="6">Team 1</Menu.Item>
-                  <Menu.Item key="8">Team 2</Menu.Item>
-                </SubMenu>
-                <Menu.Item key="9">
-                  <Icon type="file" />
-                  <span>File</span>
                 </Menu.Item>
               </Menu>
             </Sider>
@@ -91,13 +63,12 @@ export default class App extends React.Component {
                   style={{ padding: 24, background: "#fff", minHeight: 360 }}
                 >
                   <Switch>
-                    <Route path="/dolar-obs" component={GraficoDolarObs} />
-                    <Route path="/tabla" component={TablaDolares} />
-                    <Route path="/users">
-                      <p>Usuarios acá</p>
+                    <Route path="/dolar-obs">
+                      <ConNavegacion comp={GraficoDolarObs} />
                     </Route>
+                    <Route path="/tabla" component={TablaDolares} />
                     <Route path="/">
-                      <GraficoDolar />
+                      <Dashboard />
                     </Route>
                   </Switch>
                 </div>
